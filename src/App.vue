@@ -1,26 +1,43 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Form :addPC="getPC" />
+  <Main :computers="PCs"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
+import Form from './components/Form.vue'
+import Main from './components/Main.vue'
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+  components:{
+    Form,Main,
+  },
+  methods:{
+    getPC(pc)
+    {
+      const newPC = { ...pc }
+      this.PCs.push(newPC)
+      console.log(this.PCs)
+    }
+  },
+  data(){
+      return{
+        PCs:[]
+      }
+    },
 }
 </script>
 
 <style>
+html,body
+{
+  padding:0;
+  margin:0;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  position:relative;
+  width:100%;
+  padding:0;
+  margin:0;
 }
 </style>
