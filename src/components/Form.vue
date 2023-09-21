@@ -85,6 +85,8 @@
     methods:{
       BuildPC()
       {
+        var nobuild = false
+
         switch(this.PCvalues.processor)
         {
           case 1:
@@ -126,6 +128,10 @@
             {
               this.PC.processor = 'Ryzen Threadripper 2990'
               break
+            }
+          default:
+            {
+              nobuild = true
             }
         }
   
@@ -171,6 +177,10 @@
               this.PC.gpu = 'RTX 4090'
               break
             }
+          default:
+            {
+              nobuild = true
+            }
         }
   
         switch(this.PCvalues.ram)
@@ -214,6 +224,10 @@
             {
               this.PC.ram = 'DDR4 64GB'
               break
+            }
+          default:
+            {
+              nobuild = true
             }
         }
   
@@ -259,18 +273,23 @@
               this.PC.storage = '2TB SSD'
               break
             }
+          default:
+            {
+              nobuild = true
+            }
         }
-  
-        this.PC.power = Math.round((this.PCvalues.processor + this.PCvalues.gpu + 
-                                    this.PCvalues.ram + this.PCvalues.storage) / 4)
         
-        this.PC.key = this.index
+        if(!nobuild)
+        {
+          this.PC.power = Math.round((this.PCvalues.processor + this.PCvalues.gpu + 
+                                      this.PCvalues.ram + this.PCvalues.storage) / 4)
+          
+          this.PC.key = this.index
 
-        this.index++
-        
-        this.addPC(this.PC)
-        //console.log('CPU:' + this.PC.processor,' GPU:' + this.PC.gpu,' RAM:' + this.PC.ram,
-                    //' Storage:' + this.PC.storage,' Power rating:' + this.PC.power)
+          this.index++
+          
+          this.addPC(this.PC)
+        }
       },
   
       ResetBuild()

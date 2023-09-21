@@ -18,7 +18,6 @@ export default {
     {
       const newPC = { ...pc }
       this.PCs.push(newPC)
-      console.log(this.PCs)
     },
     ShowPop()
     {
