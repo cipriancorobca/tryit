@@ -58,9 +58,10 @@
   <script>
   export default {
     name: 'BuildForm',
-    emits:['add'],
+    emits:['add','pop'],
     props:{
-      addPC:Function
+      addPC:Function,
+      showPop:Function,
     },
     data(){
       return{
@@ -274,11 +275,14 @@
   
       ResetBuild()
       {
-        var selects = document.getElementsByTagName("select");
+        var selects = document.getElementsByTagName("select")
+        
         for(var i = 0; i < selects.length; i++)
         {
-          selects[i].selectedIndex = 0;
+          selects[i].selectedIndex = 0
         }
+
+        this.showPop()
       }
     }
   }
