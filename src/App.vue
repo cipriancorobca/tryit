@@ -1,23 +1,68 @@
 <template>
+  <Showins :ins="ShowIns"/>
   <Form :addPC="getPC" :showPop="ShowPop" />
-  <Main :computers="PCs"/>
+  <Main :computer="this.PC" :matchme="this.matchMe" :nextPC="NextStep" :score="this.score" :praise="this.praiseText"/>
   <Popup v-show="showpopup" :delete="DeletePCs"/>
+  <Tilt/>
+  <Instructions v-show="showInstructions" :ins="HideIns"/>
 </template>
 
 <script>
 import Form from './components/Form.vue'
 import Main from './components/Main.vue'
 import Popup from './components/Popup.vue'
+import Tilt from './components/Tilt.vue'
+import Instructions from './components/Instructions.vue'
+import Showins from './components/Insbtn.vue'
 export default {
   name: 'App',
   components:{
-    Form,Main,Popup,
+    Form,Main,Popup,Tilt,Instructions,Showins
   },
   methods:{
     getPC(pc)
     {
-      const newPC = { ...pc }
-      this.PCs.push(newPC)
+      this.PC = { ...pc }
+      this.nextAllow = true
+      if(this.matchMe%2 == 0)
+      {
+        if(this.PC.power == this.matchMe)
+        {
+          this.score += 10
+          this.praiseText = 'Well done'
+        }
+
+        else if(this.PC.power == this.matchMe-1)
+        {
+          this.score += 5
+          this.praiseText = "I'll take that"
+        }
+
+        else
+        {
+          this.praiseText = "Better luck next time"
+        }
+      }
+
+      else
+      {
+        if(this.PC.power == this.matchMe)
+        {
+          this.score += 10
+          this.praiseText = 'Well done'
+        }
+
+        else if(this.PC.power == this.matchMe+1)
+        {
+          this.score += 5
+          this.praiseText = "I'll take that"
+        }
+
+        else
+        {
+          this.praiseText = "Better luck next time"
+        }
+      }
     },
     ShowPop()
     {
@@ -25,17 +70,71 @@ export default {
     },
     DeletePCs(flag)
     {
+      this.showpopup = false
+      this.nextAllow = false
       if(flag)
       {
-        this.PCs = []
+        this.score = 0
+        this.praiseText = ''
+        if(this.PC.power != 0)
+        {
+          this.PC = this.initPC
+        }
       }
-      this.showpopup = false
+    },
+    ShowIns()
+    {
+      this.showInstructions = true
+    },
+    HideIns()
+    {
+      this.showInstructions = false
+    },
+    NextStep()
+    {
+      if(this.nextAllow)
+      {
+        let temp
+
+        do
+        {
+          temp = this.matchMe
+          this.matchMe = Math.round(Math.random()*7+1)
+        }while(this.matchMe == temp)
+        
+        this.praiseText = ''
+        if(this.PC.power != 0)
+        {
+          this.PC = this.initPC
+        }
+        this.nextAllow = false
+      }
     }
   },
   data(){
       return{
-        PCs:[],
-        showpopup:false
+        PC:{
+          key:0,
+          processor:'',
+          gpu:'',
+          ram:'',
+          storage:'',
+          power:0
+        },
+        initPC:{
+          key:0,
+          processor:'',
+          gpu:'',
+          ram:'',
+          storage:'',
+          power:0
+        },
+        showpopup:false,
+        matchMe:Math.round(Math.random()*7+1),
+        score:0,
+        praiseText:'',
+        nextAllow:false,
+        showInstructions:false
       }
     },
 }
@@ -53,5 +152,13 @@ html,body
   width:100%;
   padding:0;
   margin:0;
+}
+
+@media screen and (max-width:700px)
+{
+  html,body
+  {
+    background-color:rgba(121, 121, 121, 0.3);
+  }
 }
 </style>

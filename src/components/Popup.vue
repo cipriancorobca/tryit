@@ -1,7 +1,7 @@
 <template>
     <div class="wrapper">
         <div class="message">
-            <h2>Resetting will delete all your builds.Proceed?</h2>
+            <h2>Resetting will delete your progress.Proceed?</h2>
             <Button class="nobtn" @click="dontDelete()">No,go back</Button>
             <button class="yesbtn" @click="DeletePC()">Yes,ofc!</button>
         </div>
