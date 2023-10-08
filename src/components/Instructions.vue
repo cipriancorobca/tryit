@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="content">
             <button @click="ins()">✖</button><br>
-            <a href="../../how_to_play.pdf" target="_blank"><img src="../assets/try_it_instructions.gif"></a>
+            <img src="../assets/try_it_instructions.gif">
             <p>Watch this as many times as you need</p>
         </div>
     </div>
