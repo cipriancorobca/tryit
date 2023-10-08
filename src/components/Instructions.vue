@@ -2,7 +2,7 @@
     <div class="wrapper">
         <div class="content">
             <button @click="ins()">✖</button><br>
-            <img src="../assets/try_it_instructions.gif">
+            <a href="../assets/how_to_play.txt" download="../assets/how_to_play.txt" target="_blank"><img src="../assets/try_it_instructions.gif"></a>
             <p>Watch this as many times as you need</p>
         </div>
     </div>
