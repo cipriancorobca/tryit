@@ -71,10 +71,10 @@ export default {
     DeletePCs(flag)
     {
       this.showpopup = false
-      this.nextAllow = false
       if(flag)
       {
         this.score = 0
+        this.nextAllow = false
         this.praiseText = ''
         if(this.PC.power != 0)
         {
