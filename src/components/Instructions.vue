@@ -95,4 +95,12 @@ export default{
         margin-top:1vh;
     }
   }
+
+  @media screen and (max-width:700px)
+  {
+    .wrapper
+    {
+        display:none;
+    }
+  }
 </style>
