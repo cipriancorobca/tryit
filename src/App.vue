@@ -22,45 +22,49 @@ export default {
   methods:{
     getPC(pc)
     {
-      this.PC = { ...pc }
-      this.nextAllow = true
-      if(this.matchMe%2 == 0)
+      if(this.submission)
       {
-        if(this.PC.power == this.matchMe)
+        this.PC = { ...pc }
+        this.nextAllow = true
+        this.submission = false
+        if(this.matchMe%2 == 0)
         {
-          this.score += 10
-          this.praiseText = 'Well done'
-        }
+          if(this.PC.power == this.matchMe)
+          {
+            this.score += 10
+            this.praiseText = 'Well done'
+          }
 
-        else if(this.PC.power == this.matchMe-1)
-        {
-          this.score += 5
-          this.praiseText = "I'll take that"
+          else if(this.PC.power == this.matchMe-1)
+          {
+            this.score += 5
+            this.praiseText = "I'll take that"
+          }
+
+          else
+          {
+            this.praiseText = "Better luck next time"
+          }
         }
 
         else
         {
-          this.praiseText = "Better luck next time"
-        }
-      }
+          if(this.PC.power == this.matchMe)
+          {
+            this.score += 10
+            this.praiseText = 'Well done'
+          }
 
-      else
-      {
-        if(this.PC.power == this.matchMe)
-        {
-          this.score += 10
-          this.praiseText = 'Well done'
-        }
+          else if(this.PC.power == this.matchMe+1)
+          {
+            this.score += 5
+            this.praiseText = "I'll take that"
+          }
 
-        else if(this.PC.power == this.matchMe+1)
-        {
-          this.score += 5
-          this.praiseText = "I'll take that"
-        }
-
-        else
-        {
-          this.praiseText = "Better luck next time"
+          else
+          {
+            this.praiseText = "Better luck next time"
+          }
         }
       }
     },
@@ -75,6 +79,7 @@ export default {
       {
         this.score = 0
         this.nextAllow = false
+        this.submission = true
         this.praiseText = ''
         if(this.PC.power != 0)
         {
@@ -108,6 +113,7 @@ export default {
           this.PC = this.initPC
         }
         this.nextAllow = false
+        this.submission = true
       }
     }
   },
@@ -134,6 +140,7 @@ export default {
         score:0,
         praiseText:'',
         nextAllow:false,
+        submission:true,
         showInstructions:false
       }
     },
